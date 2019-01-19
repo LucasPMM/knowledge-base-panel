@@ -32,8 +32,11 @@ import { ContentLoaderComponent } from './components/content-loader/content-load
 import { DashComponent } from './parts/dash/dash.component';
 
 //  Pages
-import { MainComponent } from './pages/main/main.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AdminListComponent } from './pages/admin-list/admin-list.component';
+import { KnowledgesListComponent } from './pages/knowledges-list/knowledges-list.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { InstitutionalComponent } from './pages/institutional/institutional.component';
 
 // Router config
 import { AppRoutingModule } from './app-routing.module';
@@ -65,8 +68,11 @@ export function createTranslateLoader(http: HttpClient) {
     DashComponent,
     ForgotPasswordComponent,
     LoaderComponent,
-    MainComponent,
-    ContentLoaderComponent
+    ContentLoaderComponent,
+    AdminListComponent,
+    KnowledgesListComponent,
+    ContactComponent,
+    InstitutionalComponent
   ],
   imports: [
     BrowserModule,
