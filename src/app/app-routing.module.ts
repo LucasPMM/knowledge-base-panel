@@ -1,5 +1,3 @@
-import { UnauthenticatedGuard } from './guards/unauthenticated/unauthenticated.guard';
-import { AuthenticatedGuard } from './guards/authenticated/authenticated.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { DashComponent } from './parts/dash/dash.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
@@ -11,7 +9,7 @@ import { InstitutionalComponent } from './pages/institutional/institutional.comp
 import { ContactComponent } from './pages/contact/contact.component';
 
 
-
+// TODO: Add Guards:
 const routes: Routes = [
   {
     path: '',
@@ -21,17 +19,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [UnauthenticatedGuard]
   },
   {
     path: 'forgot',
     component: ForgotPasswordComponent,
-    canActivate: [UnauthenticatedGuard]
   },
   {
     path: '',
     component: DashComponent,
-    canActivate: [AuthenticatedGuard],
     children: [
       { component: AdminListComponent, path: 'admins' },
       { component: KnowledgesListComponent, path: 'knowledges' },

@@ -8,11 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Other Modules
-import { AuthServiceModule } from '@pluritech/auth-service';
-import { ServerServiceModule } from '@pluritech/server-service';
-import { PaginationModule } from '@pluritech/pagination';
-import { Ng2TableModule } from '@pluritech/ng2-responsive-table';
-import { DialogServiceModule } from '@pluritech/dialog-service';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module';
@@ -42,16 +37,13 @@ import { InstitutionalComponent } from './pages/institutional/institutional.comp
 import { AppRoutingModule } from './app-routing.module';
 
 // Services
+import { AdminService } from './providers/admin/admin.service';
 import { LoginService } from './providers/login/login.service';
 
 // Guards
-import { UnauthenticatedGuard } from './guards/unauthenticated/unauthenticated.guard';
-import { AuthenticatedGuard } from './guards/authenticated/authenticated.guard';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 // Configurations Files
-import { configuration } from './configuration';
-import { AdminService } from './providers/admin/admin.service';
 import { environment } from 'environments/environment';
 
 // Ngrx
@@ -94,6 +86,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ContentLoaderComponent,
     AdminListComponent,
     KnowledgesListComponent,
+    LoginComponent,
     ContactComponent,
     InstitutionalComponent
   ],
@@ -105,18 +98,13 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ChartsModule,
     RouterModule.forRoot([]),
     AppRoutingModule,
-    AuthServiceModule.forRoot(configuration.localStorageKey),
-    ServerServiceModule.forRoot(),
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
-    PaginationModule,
     HttpClientModule,
     BootstrapModalModule,
     FileUploadModule,
     ToasterModule.forRoot(),
     QuillModule,
-    Ng2TableModule,
-    DialogServiceModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -133,11 +121,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
   ],
   entryComponents: [],
   providers: [
-    LoginService,
-    AuthenticatedGuard,
-    UnauthenticatedGuard,
     UtilsService,
     AdminService,
+    LoginService,
   ],
   bootstrap: [AppComponent]
 })

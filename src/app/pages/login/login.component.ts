@@ -6,7 +6,6 @@ import { UtilsService } from './../../providers/utils/utils.service';
 import { CustomError } from './../../models/custom-error';
 import { ToasterService } from 'angular2-toaster';
 import { configuration } from './../../configuration';
-import { AuthService } from '@pluritech/auth-service';
 import { Credential } from './../../models/credential';
 import { LoginService } from './../../providers/login/login.service';
 
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private router: Router,
     private loginService: LoginService,
-    private authService: AuthService,
     private toasterService: ToasterService,
     private utilsService: UtilsService,
   ) {}
@@ -58,8 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.errorMsg = '';
     this.isFormSubmitted = true;
     setTimeout(async () => {
-      await this.authService.login({accessToken: 'logged', expires: 1312312});
-      this.router.navigate(['/main']);
+      this.router.navigate(['/']);
     }, 1000);
   }
 
