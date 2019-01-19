@@ -51,6 +51,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 
 // Configurations Files
 import { configuration } from './configuration';
+import { AdminService } from './providers/admin/admin.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -108,6 +109,7 @@ export function createTranslateLoader(http: HttpClient) {
     AuthenticatedGuard,
     UnauthenticatedGuard,
     UtilsService,
+    AdminService,
   ],
   bootstrap: [AppComponent]
 })
