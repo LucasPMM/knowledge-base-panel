@@ -23,6 +23,8 @@
     "@angular/platform-browser-dynamic": "^5.2.8",
     "@angular/platform-server": "^5.2.8",
     "@angular/router": "^5.2.8",
+    "@ngx-translate/core": "^9.1.1",
+    "@ngx-translate/http-loader": "^2.0.1",
     "@pluritech/auth-service": "^2.0.0",
     "@pluritech/dialog-service": "2.0.0",
     "@pluritech/ng2-responsive-table": "^0.1.32",
@@ -61,7 +63,7 @@
     "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.1.0",
+    "protractor": "^5.4.2",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "2.6.2"

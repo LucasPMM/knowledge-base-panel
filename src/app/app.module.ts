@@ -19,6 +19,9 @@ import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module
 import { ToasterModule } from 'angular2-toaster';
 import { NgxMaskModule } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // Component
 import { AppComponent } from './app.component';
@@ -47,6 +50,14 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { configuration } from './configuration';
 
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,12 +81,20 @@ import { configuration } from './configuration';
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
     PaginationModule,
+    HttpClientModule,
     BootstrapModalModule,
     FileUploadModule,
     ToasterModule.forRoot(),
     QuillModule,
     Ng2TableModule,
-    DialogServiceModule.forRoot()
+    DialogServiceModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [HttpClient]
+      }
+    })
   ],
   entryComponents: [],
   providers: [
@@ -86,6 +105,7 @@ import { configuration } from './configuration';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
   constructor(applicationRef: ApplicationRef) {
     Object.defineProperty(applicationRef, '_rootComponents', {get: () => applicationRef['components']});
