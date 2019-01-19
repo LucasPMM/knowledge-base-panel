@@ -52,6 +52,15 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 // Configurations Files
 import { configuration } from './configuration';
 import { AdminService } from './providers/admin/admin.service';
+import { environment } from 'environments/environment';
+
+// Ngrx
+import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
+import { reducers } from './stores/reducers';
+import { effects } from './stores/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -61,6 +70,19 @@ export function HttpLoaderFactory(http: HttpClient) {
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({
+    keys: [
+      { language: ['selectedLanguageValue'] },
+      { auth: ['loggedUser', 'userDataToRegister'] }
+    ],
+    rehydrate: true,
+  })(reducer);
+}
+
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+
 
 @NgModule({
   declarations: [
@@ -101,7 +123,13 @@ export function createTranslateLoader(http: HttpClient) {
           useFactory: (createTranslateLoader),
           deps: [HttpClient]
       }
-    })
+    }),
+    StoreModule.forRoot(reducers, { metaReducers, }),
+    EffectsModule.forRoot(effects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   entryComponents: [],
   providers: [
