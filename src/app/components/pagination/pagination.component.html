@@ -1,0 +1,21 @@
+<nav *ngIf="numberOfPages">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" (click)="changeButton('previous')" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+
+    <li class="page-item" [ngClass]="{'active' : pag1Clicked}"><a class="page-link" (click)="changePage(paginationNumbers[0])">{{ paginationNumbers[0] }}</a></li>
+    <li class="page-item" [ngClass]="{'active' : pag2Clicked, 'disabled' : numberOfPages < 2}"><a class="page-link" (click)="changePage(paginationNumbers[1])">{{ paginationNumbers[1] }}</a></li>
+    <li class="page-item" [ngClass]="{'active' : pag3Clicked, 'disabled' : numberOfPages < 3}"><a class="page-link" (click)="changePage(paginationNumbers[2])">{{ paginationNumbers[2] }}</a></li>
+    
+    <li class="page-item">
+      <a class="page-link" (click)="changeButton('next')" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>

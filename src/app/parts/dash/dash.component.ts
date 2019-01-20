@@ -2,7 +2,6 @@ import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { configuration } from './../../configuration';
-import { AuthService } from '@pluritech/auth-service';
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
@@ -16,16 +15,13 @@ export class DashComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private authService: AuthService
   ) { }
 
   public async logout(): Promise<void> {
-    try {
-      await this.authService.logout();
-      this.router.navigate(['/login']);
-    } catch (e) {
-      console.log('err logout', e);
-    }
+    console.log('entrei aqui');
+    this.router.navigate(['/login']);
+    console.log('entrei aqui');
+
   }
 
   ngOnInit() {
@@ -46,10 +42,10 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    const body = document.getElementsByTagName('body')[0];
-    for (const cl of this.classes) {
-      body.classList.remove(cl);
-    }
+    // const body = document.getElementsByTagName('body')[0];
+    // for (const cl of this.classes) {
+    //   body.classList.remove(cl);
+    // }
   }
 
 }

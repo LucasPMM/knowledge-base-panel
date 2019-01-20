@@ -1,0 +1,22 @@
+.table {
+    border-radius: 15px;
+    background: white;
+}
+
+.table-content {
+    vertical-align: middle;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;  
+}
+
+.fa {
+    float: left;
+}
+
+.no-margin-top {
+    border-top: none;
+}

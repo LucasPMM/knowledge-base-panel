@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
     this.msgFeedback = '';
     try {
-      await this.loginService.recoveryPassword(this.emailToRecovery)
+      // await this.loginService.recoveryPassword(this.emailToRecovery)
       this.msgFeedback = 'Email de recuperação enviado com sucesso.';
     } catch (e) {
       switch (e.status) {

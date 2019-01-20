@@ -1,41 +1,39 @@
-import { MainComponent } from './pages/main/main.component';
-import { UnauthenticatedGuard } from './guards/unauthenticated/unauthenticated.guard';
-import { AuthenticatedGuard } from './guards/authenticated/authenticated.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { DashComponent } from './parts/dash/dash.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminListComponent } from './pages/admin-list/admin-list.component';
+import { KnowledgesListComponent } from './pages/knowledges-list/knowledges-list.component';
+import { InstitutionalComponent } from './pages/institutional/institutional.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 
-
+// TODO: Add Guards:
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/statistics',
     pathMatch: 'full'
   },
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [UnauthenticatedGuard]
   },
   {
     path: 'forgot',
     component: ForgotPasswordComponent,
-    canActivate: [UnauthenticatedGuard]
   },
   {
     path: '',
     component: DashComponent,
-    canActivate: [AuthenticatedGuard],
     children: [
-      { component: MainComponent, path: 'main' },
-      { component: MainComponent, path: 'main1' },
-      { component: MainComponent, path: 'main2' },
-      { component: MainComponent, path: 'main3' },
-      { component: MainComponent, path: 'main4' },
-      { component: MainComponent, path: 'main5' },
+      { component: StatisticsComponent, path: 'statistics' },
+      { component: AdminListComponent, path: 'admins' },
+      { component: KnowledgesListComponent, path: 'knowledges' },
+      { component: InstitutionalComponent, path: 'institucional' },
+      { component: ContactComponent, path: 'contact' },
     ]
   }
 ];

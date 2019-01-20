@@ -1,0 +1,48 @@
+<section class="content-header">
+  <h1>
+    <span>Administradores</span>
+    <small> - Listagem de administradores</small>
+  </h1>
+</section>
+<div class="divider"></div>
+<section class="content">
+
+  <div class="row section">
+    <div class="col-md-3 form-group">
+      <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="filter.name">
+    </div>
+
+    <div class="col-md-3 form-group">
+      <input type="email" class="form-control" placeholder="Email" [(ngModel)]="filter.email">
+    </div>
+
+    <div class="col-md-3 col-xs-12">
+      <button class="align-center btn btn-primary btn-block btn-flat btn-social section" (click)="filtrate()">
+        <i class="fa fa-search"></i>
+        Filtrar
+      </button>
+    </div>
+    <div class="col-md-3 col-xs-12">
+      <button class="align-center btn btn-success btn-block btn-social btn-flat section" [routerLink]="['/admin/new']">
+        <i class="fa fa-plus"></i>
+        Cadastrar
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!loading" class="box-body with-border row">
+    <div class="col-md-12">
+      <p class="text-center"> Sua busca retornou um total de {{ listAdmins?.total || '0' }} resultados. </p>
+      <app-table></app-table>
+    </div>
+  </div>
+
+  <app-loader *ngIf="loading"></app-loader>
+
+  <div class="box-body row align-center" [hidden]="loading">
+    <div class="col-md-12">
+      <app-pagination></app-pagination>      
+    </div>
+  </div>
+  
+</section>

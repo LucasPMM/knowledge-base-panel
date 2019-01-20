@@ -1,10 +1,10 @@
 export const configuration = {
   projectName : {
-    firstName: 'Project',
-    lastName: 'Name',
-    minimalName: 'PN'
+    firstName: 'KnoeledgeBase',
+    lastName: 'Panel',
+    minimalName: 'KB'
   },
-  localStorageKey: 'PROJECT-NAME-APP',
+  localStorageKey: 'KNOWLEDGE-BASE-PANEL-APP',
   logoPath: '',
   skin: 'skin-blue',
   userDefaultImage: 'assets/default-user.png',
