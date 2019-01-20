@@ -82,3 +82,7 @@ export class AdminListComponent implements OnInit {
   }
 
 }
+
+// TODO:
+//    - armazenar a listagem na store
+//    - fazer um pipe de filtragem
