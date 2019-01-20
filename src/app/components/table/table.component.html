@@ -12,8 +12,8 @@
         <td class="table-content" *ngFor="let rowItem of item">{{ rowItem }}</td>
 
         <ng-container *ngIf="hasActions">
-          <ng-container *ngFor="let action of actions">
-            <td class="button-container">
+          <ng-container *ngFor="let action of actions; let j = index">
+            <td class="button-container" [ngClass]="{'no-margin-top': j === actions.length - 1}">
 
               <ng-container *ngIf="action === 'changeStatus'">
                 <button class="btn-social align-center btn btn-danger btn-sm btn-block" *ngIf="statusList[i] === 'activated'">

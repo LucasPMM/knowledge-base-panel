@@ -58,3 +58,5 @@ export class TableComponent implements OnInit {
 // Objeto com as colunas (ngFor para determinar o numero das colunas)
 // Dados para preencher a tabela
 // Quais botões deve ter na ultima coluna (pode não ter botão também)
+
+// Output para quando o botão de action for clicado
