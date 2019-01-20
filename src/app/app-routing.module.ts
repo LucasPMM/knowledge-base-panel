@@ -7,13 +7,14 @@ import { AdminListComponent } from './pages/admin-list/admin-list.component';
 import { KnowledgesListComponent } from './pages/knowledges-list/knowledges-list.component';
 import { InstitutionalComponent } from './pages/institutional/institutional.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 
 // TODO: Add Guards:
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/',
+    redirectTo: '/statistics',
     pathMatch: 'full'
   },
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: '',
     component: DashComponent,
     children: [
+      { component: StatisticsComponent, path: 'statistics' },
       { component: AdminListComponent, path: 'admins' },
       { component: KnowledgesListComponent, path: 'knowledges' },
       { component: InstitutionalComponent, path: 'institucional' },

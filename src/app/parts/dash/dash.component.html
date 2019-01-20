@@ -62,6 +62,12 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Menu de navegação</li>
         <li routerLinkActive="active">
+          <a [routerLink]="['/statistics']">
+            <i class="fa fa-line-chart text-primary"></i>
+            <span>Dados Estatísticos</span>
+          </a>
+        </li>
+        <li routerLinkActive="active">
           <a [routerLink]="['/admins']">
             <i class="fa fa-lock text-success"></i>
             <span>Adminstradores</span>

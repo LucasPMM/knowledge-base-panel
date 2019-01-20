@@ -55,6 +55,7 @@ import { effects } from './stores/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -92,7 +93,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ContactComponent,
     InstitutionalComponent,
     TableComponent,
-    PaginationComponent
+    PaginationComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
