@@ -22,6 +22,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ContentLoaderComponent } from './components/content-loader/content-loader.component';
+import { TableComponent } from './components/table/table.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 // Parts
 import { DashComponent } from './parts/dash/dash.component';
@@ -53,7 +55,6 @@ import { effects } from './stores/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TableComponent } from './components/table/table.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -90,7 +91,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     LoginComponent,
     ContactComponent,
     InstitutionalComponent,
-    TableComponent
+    TableComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
