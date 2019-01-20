@@ -21,64 +21,64 @@ export class AdminListComponent implements OnInit {
     private toasterService: ToasterService,
   ) { }
 
-  // public filtrate() {
-  //   this.load()
-  //     .then(() => this.initFilter());
-  // }
+  public filtrate() {
+    this.load()
+      .then(() => this.initFilter());
+  }
 
-  // private async changeStatus(row): Promise<void> {
-  //   row.statusActive = !row.statusActive;
-  //   try {
-  //     await this.adminService.changeStatus(row.idUser, { status: row.statusActive });
-  //     this.toasterService.pop('success', 'Status Alterado', row.statusActive ? 'Ativado!' : 'Desativado!');
-  //   } catch (e) {
-  //     row.statusActive = !row.statusActive;
-  //     this.toasterService.pop('error', 'Desculpe', 'Não foi possível alterar o status do administrador.');
-  //   }
-  // }
+  private async changeStatus(row): Promise<void> {
+    row.statusActive = !row.statusActive;
+    try {
+      await this.adminService.changeStatus(row.idUser, { status: row.statusActive });
+      this.toasterService.pop('success', 'Status Alterado', row.statusActive ? 'Ativado!' : 'Desativado!');
+    } catch (e) {
+      row.statusActive = !row.statusActive;
+      this.toasterService.pop('error', 'Desculpe', 'Não foi possível alterar o status do administrador.');
+    }
+  }
 
-  // private convertListToDataRow() {
-  //   return this.listAdmins.admins.map(admin => {
-  //     return {
-  //       idAdmin: admin.idAdmin,
-  //       idUser: admin.idUser,
-  //       email: admin.email,
-  //       name: admin.name,
-  //       dtBirth: admin.dtBirth,
-  //       phone: admin.phone,
-  //       cpf: admin.cpf,
-  //       statusActive: admin.statusActive,
-  //       dtCreate: admin.dtCreate,
-  //       dtLastLogin: admin.dtLastLogin,
-  //     };
-  //   });
-  // }
+  private convertListToDataRow() {
+    return this.listAdmins.admins.map(admin => {
+      return {
+        idAdmin: admin.idAdmin,
+        idUser: admin.idUser,
+        email: admin.email,
+        name: admin.name,
+        dtBirth: admin.dtBirth,
+        phone: admin.phone,
+        cpf: admin.cpf,
+        statusActive: admin.statusActive,
+        dtCreate: admin.dtCreate,
+        dtLastLogin: admin.dtLastLogin,
+      };
+    });
+  }
 
-  // private async load(): Promise<AdminList> {
-  //   this.loading = true;
-  //   try {
-  //     const admins = await this.adminService.getAdminList(this.filter);
-  //     this.listAdmins = admins;
-  //     this.loading = false;
-  //     return this.listAdmins;
-  //   } catch (e) {
-  //     this.toasterService.pop('error', 'Desculpe', 'Não foi possível carregar a listagem.');
-  //   }
-  //   this.loading = false;
-  // }
+  private async load(): Promise<AdminList> {
+    this.loading = true;
+    try {
+      const admins = await this.adminService.getAdminList(this.filter);
+      this.listAdmins = admins;
+      this.loading = false;
+      return this.listAdmins;
+    } catch (e) {
+      this.toasterService.pop('error', 'Desculpe', 'Não foi possível carregar a listagem.');
+    }
+    this.loading = false;
+  }
 
-  // private initFilter() {
-  //   this.filter = {
-  //     limit: 5,
-  //     offset: 0,
-  //     name: !this.filter ? '' : this.filter.name,
-  //     email: !this.filter ? '' : this.filter.email
-  //   };
-  // }
+  private initFilter() {
+    this.filter = {
+      limit: 5,
+      offset: 0,
+      name: !this.filter ? '' : this.filter.name,
+      email: !this.filter ? '' : this.filter.email
+    };
+  }
 
   ngOnInit() {
-    // this.initFilter();
-    // this.load();
+    this.initFilter();
+    this.load();
   }
 
 }

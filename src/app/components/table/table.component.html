@@ -1,0 +1,43 @@
+<div class="table-responsive align-center">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="align-center" *ngFor="let column of columns; let i = index" scope="col">{{ column | titlecase }}</th>
+        <th class="align-center" *ngIf="hasActions" scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data; let i = index">
+        <td class="table-content" *ngFor="let rowItem of item">{{ rowItem }}</td>
+
+        <ng-container *ngIf="hasActions">
+          <ng-container *ngFor="let action of actions">
+            <td class="button-container">
+
+              <ng-container *ngIf="action === 'changeStatus'">
+                <button class="btn-social align-center btn btn-danger btn-sm btn-block" *ngIf="statusList[i] === 'activated'">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                  Desativar
+                </button>
+                <button class="btn btn-social align-center btn-success btn-sm btn-block" *ngIf="statusList[i] === 'disabled'">
+                  <i class="fa fa-power-off" aria-hidden="true"></i>
+                  Ativar
+                </button>
+              </ng-container>
+              <ng-container *ngIf="action === 'detail'">
+                <button class="btn btn-social align-center btn-primary btn-sm btn-block">
+                  <i class="fa fa-eye" aria-hidden="true"></i>                
+                  Detalhes
+                </button>
+              </ng-container>
+
+            </td>
+          </ng-container>
+        </ng-container>
+
+      </tr>
+    </tbody>
+  </table>
+
+</div>
