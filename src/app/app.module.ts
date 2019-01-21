@@ -34,16 +34,19 @@ import { AdminListComponent } from './pages/admin-list/admin-list.component';
 import { KnowledgesListComponent } from './pages/knowledges-list/knowledges-list.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { InstitutionalComponent } from './pages/institutional/institutional.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { AdminNewUpdateComponent } from './pages/admin-new-update/admin-new-update.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 // Router config
 import { AppRoutingModule } from './app-routing.module';
 
 // Services
 import { AdminService } from './providers/admin/admin.service';
-import { LoginService } from './providers/login/login.service';
+import { AuthService } from './providers/auth/auth.service';
 
 // Guards
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { AuthGuard } from './providers/auth/auth-guard.service';
 
 // Configurations Files
 import { environment } from 'environments/environment';
@@ -55,7 +58,6 @@ import { effects } from './stores/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -94,7 +96,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     InstitutionalComponent,
     TableComponent,
     PaginationComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    AdminNewUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -129,7 +132,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
   providers: [
     UtilsService,
     AdminService,
-    LoginService,
+    AuthService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

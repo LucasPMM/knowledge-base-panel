@@ -1,9 +1,9 @@
 export class Credential {
-    _email: string;
-    _password: string;
+    email: string;
+    password: string;
 
     constructor(email, password) {
-        this._email = email;
-        this._password = password;
+        this.email = email;
+        this.password = password;
     }
 }

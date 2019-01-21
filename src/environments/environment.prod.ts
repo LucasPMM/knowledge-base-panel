@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'put production url here'
+  url: 'https://knowledge-base-server.firebaseio.com/'
 };

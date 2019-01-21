@@ -8,9 +8,8 @@ import { KnowledgesListComponent } from './pages/knowledges-list/knowledges-list
 import { InstitutionalComponent } from './pages/institutional/institutional.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { AuthGuard } from './providers/auth/auth-guard.service';
 
-
-// TODO: Add Guards:
 const routes: Routes = [
   {
     path: '',
@@ -34,7 +33,8 @@ const routes: Routes = [
       { component: KnowledgesListComponent, path: 'knowledges' },
       { component: InstitutionalComponent, path: 'institucional' },
       { component: ContactComponent, path: 'contact' },
-    ]
+    ],
+    canActivate: [AuthGuard]
   }
 ];
 

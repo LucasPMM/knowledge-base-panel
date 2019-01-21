@@ -1,8 +1,8 @@
 import { Utils } from './../../utils/utils';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { LoginService } from './../../providers/login/login.service';
 import { configuration } from './../../configuration';
+import { AuthService } from 'app/providers/auth/auth.service';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -15,7 +15,10 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   public isSubmitting = false;
   public msgFeedback: string;
   public projectName = configuration.projectName;
-  constructor(private loginService: LoginService) { }
+
+  constructor(
+    private authService: AuthService,
+  ) { }
 
   ngOnInit() {
     const body = document.getElementsByTagName('body')[0];
@@ -34,29 +37,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   public async recoveryPassword(): Promise<void> {
     this.isSubmitting = true;
     this.msgFeedback = '';
-    try {
-      // await this.loginService.recoveryPassword(this.emailToRecovery)
-      this.msgFeedback = 'Email de recuperação enviado com sucesso.';
-    } catch (e) {
-      switch (e.status) {
-        case 'InvalidEmail':
-          this.msgFeedback = 'Email inválido ou não encontrado entre os alunos cadastrados.';
-          break;
-        default:
-          this.msgFeedback = 'Um erro inesperado aconteceu';
-          break;
-      }
-    }
+    await this.authService.forgotPassword(this.emailToRecovery);
     this.isSubmitting = false;
   }
-
-  // public recoveryPassword(): void {
-  //   this.isSubmitting = true;
-  //   this.msgFeedback = '';
-  //   setTimeout(() => {
-  //     this.msgFeedback = 'Email de recuperação enviado com sucesso.';
-  //     this.isSubmitting = false;
-  //   }, 1000);
-  // }
 
 }

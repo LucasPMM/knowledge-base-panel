@@ -1,6 +1,7 @@
 import { Router, NavigationEnd } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,16 @@ export class AppComponent implements OnInit {
     translate.use('en');
   }
 
+  private initFirebase(): void {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyDKW-cbzYKjOVUSdMp85ygzjdwFu11DGaE',
+      authDomain: 'knowledge-base-server.firebaseapp.com',
+      databaseURL: 'https://knowledge-base-server.firebaseio.com',
+      projectId: 'knowledge-base-server',
+      storageBucket: 'knowledge-base-server.appspot.com',
+      messagingSenderId: '873739364983'
+    });
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe((evt) => {
@@ -34,6 +45,7 @@ export class AppComponent implements OnInit {
         collapse[0].classList.remove('in');
       }
     });
+    this.initFirebase();
   }
 
 }

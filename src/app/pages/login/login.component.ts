@@ -3,11 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UtilsService } from './../../providers/utils/utils.service';
-import { CustomError } from './../../models/custom-error';
-import { ToasterService } from 'angular2-toaster';
 import { configuration } from './../../configuration';
 import { Credential } from './../../models/credential';
-import { LoginService } from './../../providers/login/login.service';
+import { AuthService } from 'app/providers/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private loginService: LoginService,
-    private toasterService: ToasterService,
+    private authService: AuthService,
     private utilsService: UtilsService,
   ) {}
 
@@ -37,27 +34,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  // public async login(formValue: any, isValid: boolean): Promise<void> {
-  //   this.errorMsg = '';
-  //   this.isFormSubmitted = true;
-  //   const credentials = new Credential(formValue['email'], formValue['password']);
-  //   if (!isValid) { return; }
-
-  //   try {
-  //     const token = await this.loginService.login(credentials);
-  //     await this.authService.login(token);
-  //     this.router.navigate(['/report']);
-  //   } catch (e) {
-  //     this.utilsService.handleError(e);
-  //   }
-  // }
-
-  public login(formValue: any, isValid: boolean): void {
+  public async login(formValue: any, isValid: boolean): Promise<void> {
     this.errorMsg = '';
     this.isFormSubmitted = true;
-    setTimeout(async () => {
+    const credentials = new Credential(formValue['email'], formValue['password']);
+    if (!isValid) { return; }
+
+    // TODO: criar a login store pois o usuário é deslogado quando recarrega a pagina pois os dados são perdidos.
+
+    try {
+      await this.authService.signinUser(credentials);
       this.router.navigate(['/']);
-    }, 1000);
+    } catch (e) {
+      this.utilsService.handleError(e);
+    }
   }
 
   ngOnInit() {
