@@ -2,6 +2,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { configuration } from './../../configuration';
+import { Store } from '@ngrx/store';
+import { AuthenticationState } from 'app/stores/authentication/authentication.state';
+import { AuthenticationLogoutAction } from 'app/stores/authentication/authentication.actions';
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
@@ -15,13 +18,12 @@ export class DashComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private authStore: Store<AuthenticationState>,
   ) { }
 
   public async logout(): Promise<void> {
-    console.log('entrei aqui');
+    this.authStore.dispatch(new AuthenticationLogoutAction( null ));
     this.router.navigate(['/login']);
-    console.log('entrei aqui');
-
   }
 
   ngOnInit() {
@@ -42,10 +44,10 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // const body = document.getElementsByTagName('body')[0];
-    // for (const cl of this.classes) {
-    //   body.classList.remove(cl);
-    // }
+    const body = document.getElementsByTagName('body')[0];
+    for (const cl of this.classes) {
+      body.classList.remove(cl);
+    }
   }
 
 }

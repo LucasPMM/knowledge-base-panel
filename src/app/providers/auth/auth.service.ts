@@ -1,46 +1,36 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { Credential } from 'app/models/credential';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private token: string;
 
   constructor(
+    private afAuth: AngularFireAuth,
     private toasterService: ToasterService,
     private router: Router,
-  ) {}
+  ) { }
 
-  public async signinUser(credentials: Credential): Promise<void> {
-    try {
-      await firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password);
-      firebase.auth().currentUser.getIdToken()
-        .then(token => {
-          this.token = token;
-          console.log('token', this.token);
-        });
-      this.toasterService.pop('success', 'Login feito com sucesso');
-    } catch (error) {
-      this.toasterService.pop(
-        'error',
-        'Desculpe',
-        'Email ou senha inválido(s).'
-      );
-    }
+  public async signinUser(credential: Credential): Promise<any> {
+    let res;
+    res = await this.afAuth.auth.signInWithEmailAndPassword(credential.email, credential.password);
+    const token = this.afAuth.auth.currentUser.getIdToken(); // TODO: COLOCAR TOKEN NA STORE
+    console.log('token', token);
+    return res;
   }
 
-  public logout(): void {
-    firebase.auth().signOut();
-    this.token = null;
+  public async signOut(): Promise<void> {
+    return await this.afAuth.auth.signOut();
   }
 
   public async forgotPassword(email: string): Promise<void> {
     try {
-      await firebase.auth().sendPasswordResetEmail(email);
+      await this.afAuth.auth.sendPasswordResetEmail(email);
       this.toasterService.pop('success', 'Email enviado!', 'Um email com as instruções para mudar sua senha foi enviado.');
       this.router.navigate(['/login']);
     } catch (error) {
@@ -48,16 +38,4 @@ export class AuthService {
     }
   }
 
-  public isAuthenticated() {
-    return this.token != null;
-  }
-
-  public getToken(): string {
-    let tk: string;
-    firebase.auth().currentUser.getIdToken()
-      .then((token: string) => {
-        tk = token;
-      });
-    return tk;
-  }
 }

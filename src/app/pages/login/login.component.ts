@@ -6,6 +6,12 @@ import { UtilsService } from './../../providers/utils/utils.service';
 import { configuration } from './../../configuration';
 import { Credential } from './../../models/credential';
 import { AuthService } from 'app/providers/auth/auth.service';
+import { Store, select } from '@ngrx/store';
+import { AuthenticationState } from 'app/stores/authentication/authentication.state';
+import { AuthenticationRequestedAction, AuthenticationResetAction } from 'app/stores/authentication/authentication.actions';
+import { getAuthError, getAuthIsLoading } from 'app/stores/authentication/authentication.selectors';
+import { unsubscribeSubscriptions } from 'app/utils/utils-functions';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,11 +26,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public errorMsg: string;
 
+  public isLoading$: Observable<boolean>;
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private utilsService: UtilsService,
+    private authStore: Store<AuthenticationState>,
   ) {}
 
   private initForm(): void {
@@ -34,23 +44,32 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  public async login(formValue: any, isValid: boolean): Promise<void> {
-    this.errorMsg = '';
-    this.isFormSubmitted = true;
+  // private watchError(): void {
+  //   const error$ = this.authStore.pipe(select(getAuthError));
+  //   const sub = error$.subscribe(error => {
+  //     if (!error) {
+  //       this.router.navigate(['/']);
+  //       return;
+  //     }
+  //     console.error('Error getting suggested orders', error);
+  //     this.utilsService.handleError(error);
+  //     this.authStore.dispatch(new AuthenticationResetAction( null ));
+  //   });
+  //   this.subscriptions.push(sub);
+  // }
+
+  public login(formValue: any, isValid: boolean): void {
     const credentials = new Credential(formValue['email'], formValue['password']);
     if (!isValid) { return; }
-
-    // TODO: criar a login store pois o usuário é deslogado quando recarrega a pagina pois os dados são perdidos.
-
-    try {
-      await this.authService.signinUser(credentials);
-      this.router.navigate(['/']);
-    } catch (e) {
-      this.utilsService.handleError(e);
-    }
+    this.authStore.dispatch(new AuthenticationRequestedAction({ credentials }));
+    // this.watchError();
+  }
+  private getStates(): void {
+    // this.isLoading$ = this.authStore.pipe(select(getAuthIsLoading));
   }
 
   ngOnInit() {
+    this.getStates();
     this.initForm();
     const body = document.getElementsByTagName('body')[0];
     for (const cl of this.classes) {
@@ -63,6 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     for (const cl of this.classes) {
       body.classList.remove(cl);
     }
+    unsubscribeSubscriptions(this.subscriptions);
   }
 
 }

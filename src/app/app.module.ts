@@ -58,6 +58,9 @@ import { effects } from './stores/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AngularFireModule } from 'angularfire2';
+import { firebaseConfig } from 'environments/firebase-config';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -71,8 +74,7 @@ export function createTranslateLoader(http: HttpClient) {
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
     keys: [
-      { language: ['selectedLanguageValue'] },
-      { auth: ['loggedUser', 'userDataToRegister'] }
+      { authentication: ['isLoggedIn'] }
     ],
     rehydrate: true,
   })(reducer);
@@ -114,6 +116,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     FileUploadModule,
     ToasterModule.forRoot(),
     QuillModule,
+    AngularFireModule.initializeApp(firebaseConfig, 'knowledge-base-panel'),
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -132,6 +135,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
   providers: [
     UtilsService,
     AdminService,
+    AngularFireAuth,
     AuthService,
     AuthGuard,
   ],

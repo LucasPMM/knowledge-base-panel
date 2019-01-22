@@ -1,8 +1,8 @@
-import { ProjectState } from '../reducers';
+import { AppState } from '../reducers';
 import { createSelector } from '@ngrx/store';
 import { AdminState } from './admin.state';
 
-export const mapAdminState = (state: ProjectState) => state.admin;
+export const mapAdminState = (state: AppState) => state.admin;
 
 export const mapAdminList = (state: AdminState) => state.adminList;
 export const getAdminList = createSelector(mapAdminState, mapAdminList);
