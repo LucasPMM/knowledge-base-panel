@@ -61,6 +61,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from 'angularfire2';
 import { firebaseConfig } from 'environments/firebase-config';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -136,6 +137,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     UtilsService,
     AdminService,
     AngularFireAuth,
+    AngularFirestore,
     AuthService,
     AuthGuard,
   ],

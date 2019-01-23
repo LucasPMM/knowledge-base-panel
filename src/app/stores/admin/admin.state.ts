@@ -1,6 +1,7 @@
+import { AdminProperties, AdminList } from 'app/models/admin';
 
 export interface AdminState {
-  adminList: any;
+  adminList: AdminList;
   isLoading: boolean;
   error: string | boolean;
 }

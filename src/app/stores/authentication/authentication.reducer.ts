@@ -32,7 +32,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
       obj = {
         credentials: null,
         userToken: null,
-        isLoggedIn: false,
+        isLoggedIn: state.isLoggedIn,
         isLoading: false,
         error: action.payload.error,
       };
@@ -48,8 +48,42 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
       };
       break;
 
+    case AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED:
+      obj = {
+        credentials: action.payload.credentials,
+        userToken: state.userToken,
+        isLoggedIn: state.isLoggedIn,
+        isLoading: true,
+        error: null,
+      };
+      break;
+
+
+    case AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_COMPLETED:
+      obj = {
+        credentials: state.credentials,
+        userToken: state.userToken,
+        isLoggedIn: state.isLoggedIn,
+        isLoading: false,
+        error: null,
+      };
+      break;
+
+    case AuthenticationActionTypes.LOGOUT:
+      obj = {
+        credentials: null,
+        userToken: state.userToken,
+        isLoggedIn: state.isLoggedIn,
+        isLoading: false,
+        error: null,
+      };
+      break;
+
     case AuthenticationActionTypes.AUTHENTICATION_RESET:
-      obj = cloneObj(authenticationEmptyState);
+      obj = {
+        isLoggedIn: state.isLoggedIn,
+        ...cloneObj(authenticationEmptyState),
+      };
       break;
 
   }

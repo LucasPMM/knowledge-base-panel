@@ -7,11 +7,16 @@ import {
   AuthenticationRequestedAction,
   AuthenticationAction,
   AuthenticationPayload,
+  AuthenticationCreateUserCompletedAction,
+  AuthenticationCreateUserRequestedAction,
+  AuthenticationAddUserAction,
 } from './authentication.actions';
 import { Observable, from, of } from 'rxjs';
 import { switchMap, map, catchError, tap } from 'rxjs/operators';
 import { AuthService } from 'app/providers/auth/auth.service';
 import { Router } from '@angular/router';
+import { AdminService } from 'app/providers/admin/admin.service';
+import { AdminList } from 'app/models/admin';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -46,8 +51,50 @@ export class AuthenticationEffects {
     }),
   );
 
+  @Effect()
+  createUserRequested$: Observable<AuthenticationAddUserAction | AuthenticationErrorAction> = this.actions$
+  .pipe(
+    ofType<AuthenticationCreateUserRequestedAction>(AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED),
+    map((action: AuthenticationAction) => {
+      return action.payload;
+    }),
+      switchMap((payload: AuthenticationPayload) =>
+        from(this.authService.signupUser(payload.credentials, payload.adminProperties))
+          .pipe(
+            map((adminProperties) => {
+              return new AuthenticationAddUserAction({ adminProperties });
+            }),
+            catchError(error => {
+              return of(new AuthenticationErrorAction({ error }));
+            }),
+          ),
+        ),
+    );
+
+  @Effect()
+  createUserCompleted$: Observable<AuthenticationCreateUserCompletedAction | AuthenticationErrorAction> = this.actions$
+  .pipe(
+    ofType<AuthenticationAddUserAction>(AuthenticationActionTypes.AUTHENTICATION_ADD_USER),
+    map((action: AuthenticationAction) => {
+      return action.payload;
+    }),
+    switchMap((payload: AuthenticationPayload) =>
+      from(this.adminService.addAdmin(payload.adminProperties))
+        .pipe(
+          map(() => {
+            return new AuthenticationCreateUserCompletedAction( null );
+          }),
+          catchError(error => {
+            return of(new AuthenticationErrorAction({ error }));
+          }),
+        ),
+      ),
+    tap(() => this.router.navigate(['/admins'])),
+  );
+
   constructor(
     private actions$: Actions,
+    private adminService: AdminService,
     private authService: AuthService,
     private router: Router,
   ) {}

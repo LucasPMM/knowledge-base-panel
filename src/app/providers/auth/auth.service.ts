@@ -3,6 +3,7 @@ import { Credential } from 'app/models/credential';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
+import { AdminProperties } from 'app/models/admin';
 
 
 @Injectable({
@@ -17,8 +18,7 @@ export class AuthService {
   ) { }
 
   public async signinUser(credential: Credential): Promise<any> {
-    let res;
-    res = await this.afAuth.auth.signInWithEmailAndPassword(credential.email, credential.password);
+    const res = await this.afAuth.auth.signInWithEmailAndPassword(credential.email, credential.password);
     const token = this.afAuth.auth.currentUser.getIdToken(); // TODO: COLOCAR TOKEN NA STORE
     console.log('token', token);
     return res;
@@ -36,6 +36,12 @@ export class AuthService {
     } catch (error) {
       this.toasterService.pop('error', 'Email inválido!', 'O email digitado não se encontra na lista de usuários cadastrados.');
     }
+  }
+
+  public async signupUser(credential: Credential, adminProperties: AdminProperties): Promise<any> {
+    const res = await this.afAuth.auth.createUserWithEmailAndPassword(credential.email, credential.password);
+    console.log('Criando user:', res);
+    return adminProperties;
   }
 
 }

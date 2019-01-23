@@ -4,17 +4,15 @@ export class AdminList {
     admins: AdminProperties[];
 }
 
-interface AdminProperties {
-    idAdmin: number;
-    idUser: number;
+export interface AdminProperties {
+    idUser: string;
     email: string;
     name: string;
     dtBirth: string;
     phone: string;
     cpf: string;
     statusActive: boolean;
-    dtCreate: string;
-    dtLastLogin: string;
+    idFirebase?: string;
 }
 
 

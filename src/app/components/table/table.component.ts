@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AdminList } from 'app/models/admin';
 
 @Component({
   selector: 'app-table',
@@ -7,56 +8,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
+  @Input() adminList: AdminList;
+  @Input() columns: string[];
+  @Input() actions: string[];
+
+  // @Output() whenDetail: EventEmitter<number> = new EventEmitter<number>();
+  // @Output() whenChangeStatus: EventEmitter<number> = new EventEmitter<number>();
+
   public hasActions: boolean = false;
   public hasChangeAction: boolean = false;
   public statusList: string[] = [];
+  public usersIds: string[] = [];
 
-  public columns = [
-    'nome',
-    'e-mail',
-    'telefone',
-  ];
-
-  public actions = [
-    'detail',
-    'changeStatus'
-  ];
-
-  public data = [
-    ['Lucas Paulo Martins Mariz', 'lucaspaulom@hotmail.com', '(31) 9 7502-7868', 'activated'],
-    ['Sander Adriano Mariz', 'sandermariz@hotmail.com', '(31) 9 8402-4973', 'disabled'],
-    ['Cláudiamaris Martins Mariz', 'lucaspaulom@hotmail.com', '(31) 9 3496-0550', 'activated'],
-  ];
+  public data: any[] = [];
 
   constructor() { }
 
-  private changeStatusEffects() {
-    if (this.hasChangeAction) {
-      for (let i = 0; i < this.data.length; i++) {
-        this.statusList.push((this.data[i][this.data[i].length - 1]));
-        this.data[i].splice(this.data[i].length - 1, 1);
-      }
-      console.log('this.statusList', this.statusList);
-      console.log('this.data', this.data);
+
+  private tableHasActions() {
+    if (this.actions) {
+      this.hasActions = this.actions.length ? true : false;
+      this.hasChangeAction = this.actions.includes('changeStatus');
     }
   }
 
-  private tableHasActions() {
-    this.hasActions = this.actions.length ? true : false;
-    this.hasChangeAction = this.actions.includes('changeStatus');
-    this.changeStatusEffects();
-    console.log('hasActions', this.hasActions);
+  private mountData(): void {
+    for (let i = 0; i < this.adminList.admins.length; i++) {
+      const arr = [this.adminList.admins[i].name, this.adminList.admins[i].email, this.adminList.admins[i].phone];
+      this.data.push(arr);
+
+      if (this.hasChangeAction) {
+        const status = this.adminList.admins[i].statusActive;
+        this.statusList.push(status ? 'activated' : 'disabled');
+      }
+
+      const id = this.adminList.admins[i].idFirebase;
+      this.usersIds.push(id);
+    }
   }
 
   ngOnInit() {
     this.tableHasActions();
+    this.mountData();
   }
 
 }
-
-
-// Objeto com as colunas (ngFor para determinar o numero das colunas)
-// Dados para preencher a tabela
-// Quais botões deve ter na ultima coluna (pode não ter botão também)
-
-// Output para quando o botão de action for clicado

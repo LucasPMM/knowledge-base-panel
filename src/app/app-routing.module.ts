@@ -9,6 +9,7 @@ import { InstitutionalComponent } from './pages/institutional/institutional.comp
 import { ContactComponent } from './pages/contact/contact.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { AuthGuard } from './providers/auth/auth-guard.service';
+import { AdminNewUpdateComponent } from './pages/admin-new-update/admin-new-update.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
     children: [
       { component: StatisticsComponent, path: 'statistics' },
       { component: AdminListComponent, path: 'admins' },
+      { component: AdminNewUpdateComponent, path: 'admins/new' },
       { component: KnowledgesListComponent, path: 'knowledges' },
       { component: InstitutionalComponent, path: 'institucional' },
       { component: ContactComponent, path: 'contact' },

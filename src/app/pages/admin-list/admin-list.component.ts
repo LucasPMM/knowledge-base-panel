@@ -1,88 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AdminService } from 'app/providers/admin/admin.service';
-import { ToasterService } from 'angular2-toaster';
-import { AdminList, FilterAdmins } from 'app/models/admin';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AdminList, AdminProperties } from 'app/models/admin';
+import { AppState } from 'app/stores/reducers';
+import { Store, select } from '@ngrx/store';
+import { AdminRequestedAction, AdminResetAction } from 'app/stores/admin/admin.actions';
+import { Observable, Subscription } from 'rxjs';
+import { getAdminList, getAdminIsLoading, getAdminError } from 'app/stores/admin/admin.selectors';
+import { unsubscribeSubscriptions } from 'app/utils/utils-functions';
+import { UtilsService } from 'app/providers/utils/utils.service';
 
 @Component({
   selector: 'app-admin-list',
   templateUrl: './admin-list.component.html',
   styleUrls: ['./admin-list.component.scss']
 })
-export class AdminListComponent implements OnInit {
+export class AdminListComponent implements OnInit, OnDestroy {
 
-  public loading: boolean;
-  public listAdmins: AdminList;
-  public filter: FilterAdmins;
+  public columns: string[] = [
+    'nome',
+    'e-mail',
+    'telefone',
+  ]; // TODO: trocar pro translate.
+  public actions: string[] = [
+    'detail',
+    'changeStatus'
+  ];
+  public adminList$: Observable<AdminList>;
+  public isLoading$: Observable<boolean>;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
-    private router: Router,
-    private adminService: AdminService,
-    private toasterService: ToasterService,
+    private utilsService: UtilsService,
+    private appStore: Store<AppState>,
   ) { }
 
-  public filtrate() {
-    this.load()
-      .then(() => this.initFilter());
-  }
-
-  private async changeStatus(row): Promise<void> {
-    row.statusActive = !row.statusActive;
-    try {
-      await this.adminService.changeStatus(row.idUser, { status: row.statusActive });
-      this.toasterService.pop('success', 'Status Alterado', row.statusActive ? 'Ativado!' : 'Desativado!');
-    } catch (e) {
-      row.statusActive = !row.statusActive;
-      this.toasterService.pop('error', 'Desculpe', 'Não foi possível alterar o status do administrador.');
-    }
-  }
-
-  private convertListToDataRow() {
-    return this.listAdmins.admins.map(admin => {
-      return {
-        idAdmin: admin.idAdmin,
-        idUser: admin.idUser,
-        email: admin.email,
-        name: admin.name,
-        dtBirth: admin.dtBirth,
-        phone: admin.phone,
-        cpf: admin.cpf,
-        statusActive: admin.statusActive,
-        dtCreate: admin.dtCreate,
-        dtLastLogin: admin.dtLastLogin,
-      };
+  private watchError(): void {
+    const error$ = this.appStore.pipe(select(getAdminError));
+    const sub = error$.subscribe(error => {
+      if (!error) { return; }
+      this.utilsService.handleError(error);
+      this.appStore.dispatch(new AdminResetAction( null ));
     });
+    this.subscriptions.push(sub);
   }
 
-  private async load(): Promise<AdminList> {
-    this.loading = true;
-    try {
-      const admins = await this.adminService.getAdminList(this.filter);
-      this.listAdmins = admins;
-      this.loading = false;
-      return this.listAdmins;
-    } catch (e) {
-      this.toasterService.pop('error', 'Desculpe', 'Não foi possível carregar a listagem.');
-    }
-    this.loading = false;
-  }
-
-  private initFilter() {
-    this.filter = {
-      limit: 5,
-      offset: 0,
-      name: !this.filter ? '' : this.filter.name,
-      email: !this.filter ? '' : this.filter.email
-    };
+  private async getStates(): Promise<void> {
+    this.appStore.dispatch(new AdminRequestedAction( null ));
+    this.adminList$ = this.appStore.pipe(select(getAdminList));
+    this.isLoading$ = this.appStore.pipe(select(getAdminIsLoading));
+    this.watchError();
   }
 
   ngOnInit() {
-    this.initFilter();
-    this.load();
+    this.getStates();
+  }
+
+  ngOnDestroy() {
+    unsubscribeSubscriptions(this.subscriptions);
   }
 
 }
 
 // TODO:
-//    - armazenar a listagem na store
 //    - fazer um pipe de filtragem

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../utils/utils-functions';
-import { FilterAdmins, AdminList } from 'app/models/admin';
+import { FilterAdmins, AdminList, AdminProperties } from 'app/models/admin';
 
 export const AdminActionTypes = {
   ADMIN_REQUESTED: type('[Admin] -Admin requested-'),

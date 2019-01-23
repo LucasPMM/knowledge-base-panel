@@ -33,7 +33,7 @@ export function adminReducer(state = adminEmptyState, action: AdminAction): Admi
       break;
 
     case AdminActionTypes.ADMIN_RESET:
-      obj = cloneObj(adminEmptyState);
+      obj = {...cloneObj(adminEmptyState), adminList: state.adminList};
       break;
 
   }
