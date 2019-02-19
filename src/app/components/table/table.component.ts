@@ -13,7 +13,7 @@ export class TableComponent implements OnInit {
   @Input() actions: string[];
 
   // @Output() whenDetail: EventEmitter<number> = new EventEmitter<number>();
-  // @Output() whenChangeStatus: EventEmitter<number> = new EventEmitter<number>();
+  @Output() whenChangeStatus: EventEmitter<number> = new EventEmitter<number>();
 
   public hasActions: boolean = false;
   public hasChangeAction: boolean = false;
@@ -24,6 +24,9 @@ export class TableComponent implements OnInit {
 
   constructor() { }
 
+  public changeStatus(index: number) {
+    this.whenChangeStatus.emit(index);
+  }
 
   private tableHasActions() {
     if (this.actions) {
@@ -33,17 +36,17 @@ export class TableComponent implements OnInit {
   }
 
   private mountData(): void {
-    for (let i = 0; i < this.adminList.admins.length; i++) {
-      const arr = [this.adminList.admins[i].name, this.adminList.admins[i].email, this.adminList.admins[i].phone];
-      this.data.push(arr);
-
-      if (this.hasChangeAction) {
-        const status = this.adminList.admins[i].statusActive;
-        this.statusList.push(status ? 'activated' : 'disabled');
+    if (this.adminList) {
+      for (let i = 0; i < this.adminList.admins.length; i++) {
+        const arr = [this.adminList.admins[i].name, this.adminList.admins[i].email, this.adminList.admins[i].phone];
+        this.data.push(arr);
+        if (this.hasChangeAction) {
+          const status = this.adminList.admins[i].statusActive;
+          this.statusList.push(status ? 'activated' : 'disabled');
+        }
+        const id = this.adminList.admins[i].idFirebase;
+        this.usersIds.push(id);
       }
-
-      const id = this.adminList.admins[i].idFirebase;
-      this.usersIds.push(id);
     }
   }
 

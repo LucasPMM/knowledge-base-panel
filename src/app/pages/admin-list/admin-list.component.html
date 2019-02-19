@@ -32,7 +32,7 @@
 
   <div *ngIf="!(isLoading$ | async)" class="box-body with-border row">
     <div class="col-md-12">
-      <app-table [adminList]="adminList$ | async" [columns]="columns" [actions]="actions"></app-table>
+      <app-table [adminList]="adminList$ | async" [columns]="columns" [actions]="actions" (whenChangeStatus)="changeStatus($event)"></app-table>
     </div>
   </div>
 

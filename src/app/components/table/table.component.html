@@ -16,11 +16,11 @@
             <td class="button-container" [ngClass]="{'no-margin-top': j === actions.length - 1}">
 
               <ng-container *ngIf="action === 'changeStatus'">
-                <button class="btn-social align-center btn btn-danger btn-sm btn-block" *ngIf="statusList[i] === 'activated'">
+                <button (click)="changeStatus(i)" class="btn-social align-center btn btn-danger btn-sm btn-block" *ngIf="statusList[i] === 'activated'">
                   <i class="fa fa-times" aria-hidden="true"></i>
                   Desativar
                 </button>
-                <button class="btn btn-social align-center btn-success btn-sm btn-block" *ngIf="statusList[i] === 'disabled'">
+                <button (click)="changeStatus(i)" class="btn btn-social align-center btn-success btn-sm btn-block" *ngIf="statusList[i] === 'disabled'">
                   <i class="fa fa-power-off" aria-hidden="true"></i>
                   Ativar
                 </button>

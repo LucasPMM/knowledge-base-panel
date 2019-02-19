@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { AdminList, AdminProperties } from 'app/models/admin';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { getAdminList } from 'app/stores/admin/admin.selectors';
 
 @Injectable()
 export class AdminService {
@@ -25,25 +26,33 @@ export class AdminService {
     );
   }
 
-  public changeStatus(idUser: number, status: any) {
-    return null;
-  }
+  public async changeStatus(newAdmin: AdminProperties, indexToChangeStatus: number): Promise<AdminList> {
+    this.afs.collection('admins').doc(newAdmin.idFirebase).update({
+      cpf: newAdmin.cpf,
+      dtBirth: newAdmin.dtBirth,
+      email: newAdmin.email,
+      idUser: newAdmin.idUser,
+      name: newAdmin.name,
+      phone: newAdmin.phone,
+      statusActive: !newAdmin.statusActive!,
+    });
+    const adminList: AdminList = await this.getAdminList();
+    adminList.admins[indexToChangeStatus].statusActive = !adminList.admins[indexToChangeStatus].statusActive;
+    return adminList;
+}
 
   public async getAdminList(): Promise<AdminList> {
     const adminProperties: AdminProperties[] = await this.admins.pipe(take(1)).toPromise();
     const adminList: AdminList = {
       admins: adminProperties,
     };
-    console.log('adminList', adminList);
     return adminList;
   }
 
   public async addAdmin(admin: AdminProperties): Promise<AdminList> {
     this.adminsCollection.add(admin);
     const adminList: AdminList = await this.getAdminList();
-    console.log('retornando do addadmim', adminList);
     return adminList;
-    // TODO: Quando adicionar um admin também deve registrá-lo como o um usuario (effect de register user na authStore);
   }
 
 }
