@@ -1,4 +1,4 @@
 export class FilterList {
-    limit: number;
-    offset: number;
+  limit: number;
+  offset: number;
 }

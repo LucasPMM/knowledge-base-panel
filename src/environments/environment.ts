@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  url: 'https://knowledge-base-server.firebaseio.com/'
+  url: 'https://knowledge-base-server.firebaseio.com/',
 };

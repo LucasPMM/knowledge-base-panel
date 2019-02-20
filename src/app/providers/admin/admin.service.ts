@@ -20,7 +20,7 @@ export class AdminService {
 
     this.admins = this.adminsCollection.snapshotChanges().pipe(
       map((changes) => {
-        return changes.map(a => {
+        return changes.map((a) => {
           const data = a.payload.doc.data() as AdminProperties;
           data.idFirebase = a.payload.doc.id;
           return data;
@@ -42,7 +42,7 @@ export class AdminService {
     const adminList: AdminList = await this.getAdminList();
     // adminList.admins[indexToChangeStatus].statusActive = !adminList.admins[indexToChangeStatus].statusActive;
     return adminList;
-}
+  }
 
   public async getAdminList(): Promise<AdminList> {
     this.updateCollection();

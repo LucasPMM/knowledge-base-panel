@@ -6,7 +6,7 @@ import * as firebase from 'firebase';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
 
@@ -28,14 +28,14 @@ export class AppComponent implements OnInit {
       databaseURL: 'https://knowledge-base-server.firebaseio.com',
       projectId: 'knowledge-base-server',
       storageBucket: 'knowledge-base-server.appspot.com',
-      messagingSenderId: '873739364983'
+      messagingSenderId: '873739364983',
     });
   }
 
   ngOnInit(): void {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
-          return;
+        return;
       }
       $('html,body').animate({ scrollTop: 0 }, 'slow', () => {
         $('body').removeClass('sidebar-open');
@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
   }
 
 }
-
 
 // TODO:
 // - Adicionar o lint do Airbnb

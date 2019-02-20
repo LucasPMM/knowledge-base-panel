@@ -5,9 +5,8 @@ import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
 import { AdminProperties } from 'app/models/admin';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
 

@@ -3,7 +3,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
-  CanActivate
+  CanActivate,
 } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { getIsLoggedIn } from 'app/stores/authentication/authentication.selectors';
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ) {
     const isLogged = await this.authStore.pipe(select(getIsLoggedIn)).pipe(take(1)).toPromise();
     if (!isLogged) {

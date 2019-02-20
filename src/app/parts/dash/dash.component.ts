@@ -8,7 +8,7 @@ import { AuthenticationLogoutAction } from 'app/stores/authentication/authentica
 @Component({
   selector: 'app-dash',
   templateUrl: './dash.component.html',
-  styleUrls: ['./dash.component.scss']
+  styleUrls: ['./dash.component.scss'],
 })
 export class DashComponent implements OnInit, OnDestroy {
 
@@ -22,7 +22,7 @@ export class DashComponent implements OnInit, OnDestroy {
   ) { }
 
   public async logout(): Promise<void> {
-    this.authStore.dispatch(new AuthenticationLogoutAction( null ));
+    this.authStore.dispatch(new AuthenticationLogoutAction(null));
     this.router.navigate(['/login']);
   }
 

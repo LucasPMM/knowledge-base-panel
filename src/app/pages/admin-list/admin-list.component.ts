@@ -12,7 +12,7 @@ import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-admin-list',
   templateUrl: './admin-list.component.html',
-  styleUrls: ['./admin-list.component.scss']
+  styleUrls: ['./admin-list.component.scss'],
 })
 export class AdminListComponent implements OnInit, OnDestroy {
 
@@ -23,7 +23,7 @@ export class AdminListComponent implements OnInit, OnDestroy {
   ]; // TODO: trocar pro translate.
   public actions: string[] = [
     'detail',
-    'changeStatus'
+    'changeStatus',
   ];
 
   public adminList$: Observable<AdminList>;
@@ -44,16 +44,16 @@ export class AdminListComponent implements OnInit, OnDestroy {
 
   private watchError(): void {
     const error$ = this.appStore.pipe(select(getAdminError));
-    const sub = error$.subscribe(error => {
+    const sub = error$.subscribe((error) => {
       if (!error) { return; }
       this.utilsService.handleError(error);
-      this.appStore.dispatch(new AdminResetAction( null ));
+      this.appStore.dispatch(new AdminResetAction(null));
     });
     this.subscriptions.push(sub);
   }
 
   private async getStates(): Promise<void> {
-    this.appStore.dispatch(new AdminRequestedAction( null ));
+    this.appStore.dispatch(new AdminRequestedAction(null));
     this.adminList$ = this.appStore.pipe(select(getAdminList));
     this.isLoading$ = this.appStore.pipe(select(getAdminIsLoading));
     this.watchError();

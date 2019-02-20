@@ -36,6 +36,7 @@ export class Utils {
 
  /** This method is used to transform string aaaa-mm-dd to object Date */
   public static transformStringToDate(date: string): Date {
+    // tslint:disable-next-line:radix
     const dateSplit = date.split('-').map((value, idx) => Number.parseInt(value) - (idx % 2));
     return new Date(dateSplit[0], dateSplit[1], dateSplit[2]);
   }
@@ -64,13 +65,13 @@ export class Utils {
     const password = group.get('password');
     const confirm = group.get('confirmPassword');
     if (!password.value || !confirm.value) {
-        return null;
+      return null;
     }
     if (password.value !== confirm.value) {
-        const error = {'passwordNotEqual': true};
-        password.setErrors(error);
-        confirm.setErrors(error);
-        return error;
+      const error = { passwordNotEqual: true };
+      password.setErrors(error);
+      confirm.setErrors(error);
+      return error;
     }
     password.setErrors(null);
     confirm.setErrors(null);

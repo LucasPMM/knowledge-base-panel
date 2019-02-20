@@ -1,12 +1,12 @@
 import { cloneObj } from '../../utils/utils-functions';
 import { authenticationEmptyState, AuthenticationState } from './authentication.state';
-import { AuthenticationAction, AuthenticationActionTypes } from './authentication.actions';
+import { AuthenticationAction, authenticationActionTypes } from './authentication.actions';
 
 export function authenticationReducer(state = authenticationEmptyState, action: AuthenticationAction): AuthenticationState {
 
   switch (action.type) {
 
-    case AuthenticationActionTypes.AUTHENTICATION_REQUESTED:
+    case authenticationActionTypes.AUTHENTICATION_REQUESTED:
       return {
         credentials: action.payload.credentials,
         userToken: null,
@@ -15,7 +15,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
         error: null,
       };
 
-    case AuthenticationActionTypes.AUTHENTICATION_COMPLETED:
+    case authenticationActionTypes.AUTHENTICATION_COMPLETED:
       return {
         credentials: state.credentials,
         userToken: action.payload.userToken,
@@ -24,7 +24,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
         error: null,
       };
 
-    case AuthenticationActionTypes.AUTHENTICATION_ERROR:
+    case authenticationActionTypes.AUTHENTICATION_ERROR:
       return {
         credentials: null,
         userToken: null,
@@ -33,7 +33,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
         error: action.payload.error,
       };
 
-    case AuthenticationActionTypes.LOGOUT:
+    case authenticationActionTypes.LOGOUT:
       return {
         credentials: null,
         userToken: null,
@@ -42,7 +42,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
         error: null,
       };
 
-    case AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED:
+    case authenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED:
       return {
         credentials: action.payload.credentials,
         userToken: state.userToken,
@@ -51,8 +51,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
         error: null,
       };
 
-
-    case AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_COMPLETED:
+    case authenticationActionTypes.AUTHENTICATION_CREATE_USER_COMPLETED:
       return {
         credentials: state.credentials,
         userToken: state.userToken,
@@ -61,7 +60,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
         error: null,
       };
 
-    case AuthenticationActionTypes.LOGOUT:
+    case authenticationActionTypes.LOGOUT:
       return {
         credentials: null,
         userToken: state.userToken,
@@ -70,7 +69,7 @@ export function authenticationReducer(state = authenticationEmptyState, action: 
         error: null,
       };
 
-    case AuthenticationActionTypes.AUTHENTICATION_RESET:
+    case authenticationActionTypes.AUTHENTICATION_RESET:
       return {
         isLoggedIn: state.isLoggedIn,
         ...cloneObj(authenticationEmptyState),

@@ -4,7 +4,7 @@ import { AdminList } from 'app/models/admin';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
 
@@ -37,7 +37,7 @@ export class TableComponent implements OnInit {
 
   private mountData(): void {
     if (this.adminList) {
-      for (let i = 0; i < this.adminList.admins.length; i++) {
+      for (let i = 0; i < this.adminList.admins.length; i += 1) {
         const arr = [this.adminList.admins[i].name, this.adminList.admins[i].email, this.adminList.admins[i].phone];
         this.data.push(arr);
         if (this.hasChangeAction) {

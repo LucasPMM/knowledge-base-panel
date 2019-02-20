@@ -2,7 +2,7 @@ export const configuration = {
   projectName : {
     firstName: 'KnoeledgeBase',
     lastName: 'Panel',
-    minimalName: 'KB'
+    minimalName: 'KB',
   },
   localStorageKey: 'KNOWLEDGE-BASE-PANEL-APP',
   logoPath: '',

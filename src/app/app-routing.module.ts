@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: '/statistics',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'login',
@@ -36,12 +36,12 @@ const routes: Routes = [
       { component: InstitutionalComponent, path: 'institucional' },
       { component: ContactComponent, path: 'contact' },
     ],
-    canActivate: [AuthGuard]
-  }
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
 import { environment } from './../../../environments/environment.prod';
 import { configuration } from './../../configuration';
-import { ErrorMessages } from './error-messages';
+import { errorMessages } from './error-messages';
 
 @Injectable()
 export class UtilsService {
@@ -29,7 +29,7 @@ export class UtilsService {
    * @param {string} errorStatus - An error string that has to be writed in error-messages.ts file
    */
   private showToast(errorStatus: string): void {
-    const errorMessage = ErrorMessages[errorStatus] ? ErrorMessages[errorStatus] : ErrorMessages['Unexpected'];
+    const errorMessage = errorMessages[errorStatus] ? errorMessages[errorStatus] : errorMessages['Unexpected'];
     this.toasterService.pop('error', errorMessage);
   }
 }

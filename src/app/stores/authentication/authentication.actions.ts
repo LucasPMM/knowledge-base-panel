@@ -3,7 +3,7 @@ import { type } from '../../utils/utils-functions';
 import { Credential } from 'app/models/credential';
 import { AdminProperties } from 'app/models/admin';
 
-export const AuthenticationActionTypes = {
+export const authenticationActionTypes = {
   AUTHENTICATION_REQUESTED: type('[Authentication] -Authentication requested-'),
   AUTHENTICATION_COMPLETED: type('[Authentication] -Authentication completed-'),
   AUTHENTICATION_RESET: type('[Authentication] -Authentication reset-'),
@@ -24,41 +24,41 @@ export interface AuthenticationPayload {
 }
 
 export class AuthenticationRequestedAction implements Action {
-  readonly type = AuthenticationActionTypes.AUTHENTICATION_REQUESTED;
+  readonly type = authenticationActionTypes.AUTHENTICATION_REQUESTED;
   constructor(public payload?: AuthenticationPayload) { }
 }
 
 export class AuthenticationCompletedAction implements Action {
-  readonly type = AuthenticationActionTypes.AUTHENTICATION_COMPLETED;
+  readonly type = authenticationActionTypes.AUTHENTICATION_COMPLETED;
   constructor(public payload?: AuthenticationPayload) { }
 }
 
 export class AuthenticationResetAction implements Action {
-  readonly type = AuthenticationActionTypes.AUTHENTICATION_RESET;
+  readonly type = authenticationActionTypes.AUTHENTICATION_RESET;
   constructor(public payload?: AuthenticationPayload) { }
 }
 
 export class AuthenticationErrorAction implements Action {
-  readonly type = AuthenticationActionTypes.AUTHENTICATION_ERROR;
+  readonly type = authenticationActionTypes.AUTHENTICATION_ERROR;
   constructor(public payload?: AuthenticationPayload) { }
 }
 
 export class AuthenticationCreateUserRequestedAction implements Action {
-  readonly type = AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED;
+  readonly type = authenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED;
   constructor(public payload?: AuthenticationPayload) { }
 }
 export class AuthenticationCreateUserCompletedAction implements Action {
-  readonly type = AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_COMPLETED;
+  readonly type = authenticationActionTypes.AUTHENTICATION_CREATE_USER_COMPLETED;
   constructor(public payload?: AuthenticationPayload) { }
 }
 
 export class AuthenticationAddUserAction implements Action {
-  readonly type = AuthenticationActionTypes.AUTHENTICATION_ADD_USER;
+  readonly type = authenticationActionTypes.AUTHENTICATION_ADD_USER;
   constructor(public payload?: AuthenticationPayload) { }
 }
 
 export class AuthenticationLogoutAction implements Action {
-  readonly type = AuthenticationActionTypes.LOGOUT;
+  readonly type = authenticationActionTypes.LOGOUT;
   constructor(public payload?: AuthenticationPayload) { }
 }
 
@@ -72,4 +72,3 @@ export type AuthenticationAction =
   | AuthenticationCreateUserCompletedAction
   | AuthenticationAddUserAction
 ;
-

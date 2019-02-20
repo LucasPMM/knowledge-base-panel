@@ -63,11 +63,6 @@ import { firebaseConfig } from 'environments/firebase-config';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
-
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -75,14 +70,14 @@ export function createTranslateLoader(http: HttpClient) {
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
     keys: [
-      { authentication: ['isLoggedIn'] }
+      { authentication: ['isLoggedIn'] },
     ],
     rehydrate: true,
   })(reducer);
 }
 
+// tslint:disable-next-line:prefer-array-literal
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
-
 
 @NgModule({
   declarations: [
@@ -100,7 +95,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     TableComponent,
     PaginationComponent,
     StatisticsComponent,
-    AdminNewUpdateComponent
+    AdminNewUpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -120,12 +115,12 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     AngularFireModule.initializeApp(firebaseConfig, 'knowledge-base-panel'),
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [HttpClient]
-      }
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient],
+      },
     }),
-    StoreModule.forRoot(reducers, { metaReducers, }),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -141,11 +136,11 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     AuthService,
     AuthGuard,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 
 export class AppModule {
   constructor(applicationRef: ApplicationRef) {
-    Object.defineProperty(applicationRef, '_rootComponents', {get: () => applicationRef['components']});
+    Object.defineProperty(applicationRef, '_rootComponents', { get: () => applicationRef['components'] });
   }
 }

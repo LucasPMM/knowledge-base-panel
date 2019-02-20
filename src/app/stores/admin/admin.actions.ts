@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { type } from '../../utils/utils-functions';
 import { FilterAdmins, AdminList, AdminProperties } from 'app/models/admin';
 
-export const AdminActionTypes = {
+export const adminActionTypes = {
   ADMIN_REQUESTED: type('[Admin] -Admin requested-'),
   ADMIN_COMPLETED: type('[Admin] -Admin completed-'),
   ADMIN_RESET: type('[Admin] -Admin reset-'),
@@ -21,32 +21,32 @@ export interface AdminPayload {
 }
 
 export class AdminRequestedAction implements Action {
-  readonly type = AdminActionTypes.ADMIN_REQUESTED;
+  readonly type = adminActionTypes.ADMIN_REQUESTED;
   constructor(public payload?: AdminPayload) { }
 }
 
 export class AdminCompletedAction implements Action {
-  readonly type = AdminActionTypes.ADMIN_COMPLETED;
+  readonly type = adminActionTypes.ADMIN_COMPLETED;
   constructor(public payload?: AdminPayload) { }
 }
 
 export class AdminResetAction implements Action {
-  readonly type = AdminActionTypes.ADMIN_RESET;
+  readonly type = adminActionTypes.ADMIN_RESET;
   constructor(public payload?: AdminPayload) { }
 }
 
 export class AdminChangeStatusRequestedAction implements Action {
-  readonly type = AdminActionTypes.ADMIN_CHANGE_STATUS_REQUESTED;
+  readonly type = adminActionTypes.ADMIN_CHANGE_STATUS_REQUESTED;
   constructor(public payload?: AdminPayload) { }
 }
 
 export class AdminChangeStatusCompletedAction implements Action {
-  readonly type = AdminActionTypes.ADMIN_CHANGE_STATUS_COMPLETED;
+  readonly type = adminActionTypes.ADMIN_CHANGE_STATUS_COMPLETED;
   constructor(public payload?: AdminPayload) { }
 }
 
 export class AdminErrorAction implements Action {
-  readonly type = AdminActionTypes.ADMIN_ERROR;
+  readonly type = adminActionTypes.ADMIN_ERROR;
   constructor(public payload?: AdminPayload) { }
 }
 
@@ -58,4 +58,3 @@ export type AdminAction =
   | AdminChangeStatusRequestedAction
   | AdminChangeStatusCompletedAction
 ;
-

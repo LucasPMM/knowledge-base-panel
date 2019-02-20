@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-admin-new-update',
   templateUrl: './admin-new-update.component.html',
-  styleUrls: ['./admin-new-update.component.scss']
+  styleUrls: ['./admin-new-update.component.scss'],
 })
 export class AdminNewUpdateComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class AdminNewUpdateComponent implements OnInit {
       phone: '(31) 9 7502-7868',
       cpf: '144.010.016-05',
       statusActive: true,
-    }
+    };
     this.appStore.dispatch(new AuthenticationCreateUserRequestedAction({ adminProperties, credentials }));
   }
   // TODO: get id from url

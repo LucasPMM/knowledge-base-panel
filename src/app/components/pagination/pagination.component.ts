@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+  styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
 
@@ -28,8 +28,8 @@ export class PaginationComponent implements OnInit {
     this.pag2Clicked = false;
     this.pag3Clicked = false;
     if (this.paginationNumbers[0] > 1) {
-      for (let i = 0; i < this.paginationNumbers.length; i++) {
-        this.paginationNumbers[i]--;
+      for (let i = 0; i < this.paginationNumbers.length; i += 1) {
+        this.paginationNumbers[i] -= 1;
       }
       this.pag1Clicked = false;
       this.pag2Clicked = true;
@@ -48,8 +48,8 @@ export class PaginationComponent implements OnInit {
     this.pag2Clicked = false;
     this.pag3Clicked = true;
     if (this.numberOfPages > this.paginationNumbers[2]) {
-      for (let i = 0; i < this.paginationNumbers.length; i++) {
-        this.paginationNumbers[i]++;
+      for (let i = 0; i < this.paginationNumbers.length; i += 1) {
+        this.paginationNumbers[i] += 1;
       }
       this.pag1Clicked = false;
       this.pag2Clicked = true;
@@ -83,16 +83,16 @@ export class PaginationComponent implements OnInit {
         this.pag2Clicked = false;
         this.pag3Clicked = false;
         if (this.paginationNumbers[0] > 1) {
-          for (let i = 0; i < this.paginationNumbers.length; i++) {
-            this.paginationNumbers[i]--;
+          for (let i = 0; i < this.paginationNumbers.length; i += 1) {
+            this.paginationNumbers[i] -= 1;
           }
           this.position2Effects();
         }
       } else if (this.pag3Clicked) {
         this.position2Effects();
         if (this.paginationNumbers[0] > 1) {
-          for (let i = 0; i < this.paginationNumbers.length; i++) {
-            this.paginationNumbers[i]--;
+          for (let i = 0; i < this.paginationNumbers.length; i += 1) {
+            this.paginationNumbers[i] -= 1;
           }
           this.position2Effects();
         }
@@ -103,7 +103,7 @@ export class PaginationComponent implements OnInit {
   private setNumberOfPages(): void {
     this.numberOfPages = Math.ceil(this.numberOfElements / this.elementsPerPage);
     if (this.numberOfPages) {
-      for (let i = 0; i < this.numberOfPages; i++) {
+      for (let i = 0; i < this.numberOfPages; i += 1) {
         this.paginationArr.push(this.numberOfPages);
       }
     }

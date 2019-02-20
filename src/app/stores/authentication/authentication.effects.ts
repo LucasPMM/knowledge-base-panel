@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   AuthenticationErrorAction,
   AuthenticationCompletedAction,
-  AuthenticationActionTypes,
+  authenticationActionTypes,
   AuthenticationRequestedAction,
   AuthenticationAction,
   AuthenticationPayload,
@@ -24,15 +24,15 @@ export class AuthenticationEffects {
   @Effect()
   authenticationRequested$: Observable<AuthenticationCompletedAction | AuthenticationErrorAction> = this.actions$
   .pipe(
-    ofType<AuthenticationRequestedAction>(AuthenticationActionTypes.AUTHENTICATION_REQUESTED),
+    ofType<AuthenticationRequestedAction>(authenticationActionTypes.AUTHENTICATION_REQUESTED),
     map((action: AuthenticationAction) => action.payload),
-      switchMap((payload: AuthenticationPayload) =>
+    switchMap((payload: AuthenticationPayload) =>
         from(this.authService.signinUser(payload.credentials))
           .pipe(
             map((userToken: string) => {
               return new AuthenticationCompletedAction({ userToken });
             }),
-            catchError(error => {
+            catchError((error) => {
               console.log('error', error);
               return of(new AuthenticationErrorAction({ error }));
             }),
@@ -45,7 +45,7 @@ export class AuthenticationEffects {
   })
   authenticationCompleted$: Observable<any> = this.actions$
   .pipe(
-    ofType<AuthenticationCompletedAction>(AuthenticationActionTypes.AUTHENTICATION_COMPLETED),
+    ofType<AuthenticationCompletedAction>(authenticationActionTypes.AUTHENTICATION_COMPLETED),
     tap(() => {
       this.router.navigate(['/']);
     }),
@@ -54,17 +54,17 @@ export class AuthenticationEffects {
   @Effect()
   createUserRequested$: Observable<AuthenticationAddUserAction | AuthenticationErrorAction> = this.actions$
   .pipe(
-    ofType<AuthenticationCreateUserRequestedAction>(AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED),
+    ofType<AuthenticationCreateUserRequestedAction>(authenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED),
     map((action: AuthenticationAction) => {
       return action.payload;
     }),
-      switchMap((payload: AuthenticationPayload) =>
+    switchMap((payload: AuthenticationPayload) =>
         from(this.authService.signupUser(payload.credentials, payload.adminProperties))
           .pipe(
             map((adminProperties) => {
               return new AuthenticationAddUserAction({ adminProperties });
             }),
-            catchError(error => {
+            catchError((error) => {
               return of(new AuthenticationErrorAction({ error }));
             }),
           ),
@@ -74,7 +74,7 @@ export class AuthenticationEffects {
   @Effect()
   createUserCompleted$: Observable<AuthenticationCreateUserCompletedAction | AuthenticationErrorAction> = this.actions$
   .pipe(
-    ofType<AuthenticationAddUserAction>(AuthenticationActionTypes.AUTHENTICATION_ADD_USER),
+    ofType<AuthenticationAddUserAction>(authenticationActionTypes.AUTHENTICATION_ADD_USER),
     map((action: AuthenticationAction) => {
       return action.payload;
     }),
@@ -82,9 +82,9 @@ export class AuthenticationEffects {
       from(this.adminService.addAdmin(payload.adminProperties))
         .pipe(
           map(() => {
-            return new AuthenticationCreateUserCompletedAction( null );
+            return new AuthenticationCreateUserCompletedAction(null);
           }),
-          catchError(error => {
+          catchError((error) => {
             return of(new AuthenticationErrorAction({ error }));
           }),
         ),
@@ -98,6 +98,5 @@ export class AuthenticationEffects {
     private authService: AuthService,
     private router: Router,
   ) {}
-
 
 }
