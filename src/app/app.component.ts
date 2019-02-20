@@ -49,3 +49,9 @@ export class AppComponent implements OnInit {
   }
 
 }
+
+
+// TODO:
+// - Adicionar o lint do Airbnb
+// - Refatorar os reducers
+// - Trabalhar a responsividade das tabelas

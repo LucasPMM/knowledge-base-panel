@@ -12,7 +12,10 @@ export class AdminService {
   private admins: Observable<AdminProperties[]>;
 
   constructor(public afs: AngularFirestore) {
+    this.updateCollection();
+  }
 
+  public updateCollection() {
     this.adminsCollection = this.afs.collection('admins');
 
     this.admins = this.adminsCollection.snapshotChanges().pipe(
@@ -37,11 +40,12 @@ export class AdminService {
       statusActive: !newAdmin.statusActive!,
     });
     const adminList: AdminList = await this.getAdminList();
-    adminList.admins[indexToChangeStatus].statusActive = !adminList.admins[indexToChangeStatus].statusActive;
+    // adminList.admins[indexToChangeStatus].statusActive = !adminList.admins[indexToChangeStatus].statusActive;
     return adminList;
 }
 
   public async getAdminList(): Promise<AdminList> {
+    this.updateCollection();
     const adminProperties: AdminProperties[] = await this.admins.pipe(take(1)).toPromise();
     const adminList: AdminList = {
       admins: adminProperties,

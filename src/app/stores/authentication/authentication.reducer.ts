@@ -4,89 +4,80 @@ import { AuthenticationAction, AuthenticationActionTypes } from './authenticatio
 
 export function authenticationReducer(state = authenticationEmptyState, action: AuthenticationAction): AuthenticationState {
 
-  let obj: AuthenticationState = cloneObj(state);
-
   switch (action.type) {
 
     case AuthenticationActionTypes.AUTHENTICATION_REQUESTED:
-      obj = {
+      return {
         credentials: action.payload.credentials,
         userToken: null,
         isLoggedIn: false,
         isLoading: true,
         error: null,
       };
-      break;
 
     case AuthenticationActionTypes.AUTHENTICATION_COMPLETED:
-      obj = {
+      return {
         credentials: state.credentials,
         userToken: action.payload.userToken,
         isLoggedIn: true,
         isLoading: false,
         error: null,
       };
-      break;
 
     case AuthenticationActionTypes.AUTHENTICATION_ERROR:
-      obj = {
+      return {
         credentials: null,
         userToken: null,
         isLoggedIn: state.isLoggedIn,
         isLoading: false,
         error: action.payload.error,
       };
-      break;
 
     case AuthenticationActionTypes.LOGOUT:
-      obj = {
+      return {
         credentials: null,
         userToken: null,
         isLoggedIn: false,
         isLoading: false,
         error: null,
       };
-      break;
 
     case AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_REQUESTED:
-      obj = {
+      return {
         credentials: action.payload.credentials,
         userToken: state.userToken,
         isLoggedIn: state.isLoggedIn,
         isLoading: true,
         error: null,
       };
-      break;
 
 
     case AuthenticationActionTypes.AUTHENTICATION_CREATE_USER_COMPLETED:
-      obj = {
+      return {
         credentials: state.credentials,
         userToken: state.userToken,
         isLoggedIn: state.isLoggedIn,
         isLoading: false,
         error: null,
       };
-      break;
 
     case AuthenticationActionTypes.LOGOUT:
-      obj = {
+      return {
         credentials: null,
         userToken: state.userToken,
         isLoggedIn: state.isLoggedIn,
         isLoading: false,
         error: null,
       };
-      break;
 
     case AuthenticationActionTypes.AUTHENTICATION_RESET:
-      obj = {
+      return {
         isLoggedIn: state.isLoggedIn,
         ...cloneObj(authenticationEmptyState),
       };
-      break;
 
+    default:
+      return cloneObj(state);
   }
 
-  return obj;
 }
