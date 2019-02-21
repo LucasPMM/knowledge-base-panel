@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Credential } from 'app/models/credential';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
 import { AdminProperties } from 'app/models/admin';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private toasterService: ToasterService,
+    private toastr: ToastrService,
     private router: Router,
   ) { }
 
@@ -30,10 +30,10 @@ export class AuthService {
   public async forgotPassword(email: string): Promise<void> {
     try {
       await this.afAuth.auth.sendPasswordResetEmail(email);
-      this.toasterService.pop('success', 'Email enviado!', 'Um email com as instruções para mudar sua senha foi enviado.');
+      this.toastr.success('Email enviado!', 'Um email com as instruções para mudar sua senha foi enviado.');
       this.router.navigate(['/login']);
     } catch (error) {
-      this.toasterService.pop('error', 'Email inválido!', 'O email digitado não se encontra na lista de usuários cadastrados.');
+      this.toastr.error('Email inválido!', 'O email digitado não se encontra na lista de usuários cadastrados.');
     }
   }
 

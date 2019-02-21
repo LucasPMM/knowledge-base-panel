@@ -11,7 +11,7 @@ import { HttpModule } from '@angular/http';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module';
-import { ToasterModule } from 'angular2-toaster';
+import { ToastrModule } from 'ngx-toastr';
 import { NgxMaskModule } from 'ngx-mask';
 import { QuillModule } from 'ngx-quill';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -110,7 +110,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HttpClientModule,
     BootstrapModalModule,
     FileUploadModule,
-    ToasterModule.forRoot(),
+    ToastrModule.forRoot(),
     QuillModule,
     AngularFireModule.initializeApp(firebaseConfig, 'knowledge-base-panel'),
     TranslateModule.forRoot({

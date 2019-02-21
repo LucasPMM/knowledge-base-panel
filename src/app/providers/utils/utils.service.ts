@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { ToasterService } from 'angular2-toaster';
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../environments/environment';
 import { configuration } from './../../configuration';
 import { errorMessages } from './error-messages';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class UtilsService {
 
   constructor(
-    private toasterService: ToasterService,
+    private toastr: ToastrService,
   ) { }
 
   /**
@@ -30,6 +30,6 @@ export class UtilsService {
    */
   private showToast(errorStatus: string): void {
     const errorMessage = errorMessages[errorStatus] ? errorMessages[errorStatus] : errorMessages['Unexpected'];
-    this.toasterService.pop('error', errorMessage);
+    this.toastr.error('Um erro inesperado ocorreu', errorMessage);
   }
 }

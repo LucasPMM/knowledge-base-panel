@@ -30,8 +30,8 @@
     "@ngrx/store-devtools": "^6.1.0",
     "@ngx-translate/core": "^10.0.2",
     "@ngx-translate/http-loader": "^3.0.1",
+    "@swimlane/ngx-charts": "^10.1.0",
     "admin-lte": "^2.4.2",
-    "angular2-toaster": "^7.0.0",
     "angularfire2": "^5.1.1",
     "bootstrap": "^3.3.7",
     "chart.js": "^2.6.0",
@@ -47,6 +47,7 @@
     "ngrx-store-localstorage": "^5.0.1",
     "ngx-mask": "^2.4.4",
     "ngx-quill": "^2.1.2",
+    "ngx-toastr": "^9.1.2",
     "rxjs": "^6.2.2",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.28"
